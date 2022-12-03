@@ -1,0 +1,39 @@
+Creat database dbloja;
+Use dbloja;
+create table produto(
+     codproduto int not null,
+     descricaoproduto varchar(50) not null,
+     unidade char(2) not null,
+     preco float not null,
+     primary key (codproduto));
+
+  create table cliente(
+    codcliente int not null,
+    cliente varchar(50) not null,
+    cpf char(11) not null,
+    endereco char(30) not null,
+    primary key (codcliente));
+
+create table tipospagamento(
+    codtppagamento int not null,
+    descricaotppagamento varchar (20) not null,
+    primary key (codtppagamento));
+
+create table vendas (
+     nnf int not null,
+     dtvenda date not null,
+     codcliente int not null,
+     codtppagamento int not null,
+     vlvenda float not null,
+     primary key (nnf,dtvenda),
+     foreign key (codcliente) references cliente (codcliente),
+    foreign key (codtppagamento) references tipospagamento (codtppagamento));
+
+create table itensvenda (
+     nnf int not null,
+     dtvenda date not null,
+     codproduto int not null,
+     qtde float not null,
+     primary key (nnf,dtvenda,codproduto),
+     foreign key (nnf,dtvenda) references vendas (nnf,dtvenda),
+     foreign key (codproduto) references produto (codproduto));
